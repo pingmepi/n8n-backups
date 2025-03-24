@@ -1,0 +1,425 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Supabase3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-11T05:52:21.649Z",
+  "id": "LffYTfEfS9n5iBDB",
+  "meta": null,
+  "name": "get posts from high value followers - X",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -400
+      ],
+      "id": "853451b3-095a-4673-8522-1ab6f3afc702",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "high_value_followers",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -400
+      ],
+      "id": "158e47a4-d001-4dde-b2df-b1727b90d7ef",
+      "name": "Supabase"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.twitter.com/2/users/{{ $json.user_id }}/tweets",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"max_results\": 5,\n  \"tweet.fields\": \"id,text,public_metrics,created_at\"\n}",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Authorization\": \"Bearer AAAAAAAAAAAAAAAAAAAAAGobzgEAAAAAXvQISUWiSYEIKn6dX%2BkhKStwhhg%3DY2nFLyB3szcUG4lRb18KR4N7vxBLioDuzARtnxLas4GNMY1ATc\n\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -300
+      ],
+      "id": "b6881f36-b21c-49d2-aaac-6e2be78ae25f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        860,
+        -400
+      ],
+      "id": "fbd625f5-76db-4340-9de8-4b93da7afd3c",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "jsCode": "const tweets = $json[\"data\"];\nconst highEngagementTweets = tweets.filter(tweet => \n  tweet.public_metrics.like_count > 10 || \n  tweet.public_metrics.retweet_count > 5\n);\n\nreturn highEngagementTweets.map(tweet => ({\n  tweet_id: tweet.id,\n  text: tweet.text,\n  author_id: $node[\"PostgreSQL\"].json[\"user_id\"]\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1540,
+        -300
+      ],
+      "id": "26187a3f-5e49-4bd1-ae32-b67036bed676",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.twitter.com/2/users/{{ $('Supabase').item.json.user_id }}/likes",
+        "sendQuery": true,
+        "specifyQuery": "json",
+        "jsonQuery": "={\n  \"tweet_id\": \"{{$json[\"tweet_id\"]}}\"\n}",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"Authorization\": \"Bearer {{$vars.x_bearer_token}}\",\n  \"Content-Type\": \"application/json\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -300
+      ],
+      "id": "0af256b3-e6ca-4b06-84b4-d1f1735e56dd",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Respond to this tweet in an engaging and thoughtful manner:\n\"{{ $json[\"text\"] }}\"\nEnsure the response is relevant, conversational, and invites further discussion.\n",
+        "hasOutputParser": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2260,
+        -300
+      ],
+      "id": "2e3716d6-7c28-495e-b40c-581ab6027237",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        -20
+      ],
+      "id": "30a57bd7-c247-49a2-b318-634541848161",
+      "name": "OpenRouter Chat Model"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"in_reply_to_tweet_id\": \"1234534\",\n  \"content\":\"text response from openrouter\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        2400,
+        -80
+      ],
+      "id": "2680a9a8-fc12-484d-a93b-7da6f75358ce",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twitter.com/2/tweets",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"reply\": {\n    \"in_reply_to_tweet_id\": \"{{$json[\"in_reply_to_tweet_id\"]}}\"\n  },\n  \"text\": \"{{$json[\"content\"]}}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2840,
+        -300
+      ],
+      "id": "785a85eb-2c6c-489c-a090-f26bdf5e593f",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "tableId": "engagement_history",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "post_id",
+              "fieldValue": "={{$json[\"in_reply_to_tweet_id\"]}}"
+            },
+            {
+              "fieldId": "reply_content",
+              "fieldValue": "={{$json[\"content\"]}}"
+            },
+            {
+              "fieldId": "engagement_type",
+              "fieldValue": "reply"
+            },
+            {
+              "fieldId": "engagement_time",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        200
+      ],
+      "id": "212966ee-48a3-40d3-a9aa-e17737b3a11c",
+      "name": "Supabase1"
+    },
+    {
+      "parameters": {
+        "tableId": "engagement_history",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "post_id",
+              "fieldValue": "={{$json[\"in_reply_to_tweet_id\"]}}"
+            },
+            {
+              "fieldId": "engagement_type",
+              "fieldValue": "like"
+            },
+            {
+              "fieldId": "engagement_time",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3080,
+        -300
+      ],
+      "id": "7315690e-3094-496d-bc1a-1819de19f358",
+      "name": "Supabase3"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2620,
+        -300
+      ],
+      "id": "4c7768aa-4055-412f-a1ff-d9058eca3176",
+      "name": "Wait",
+      "webhookId": "b378bc3d-c1f8-4413-b42a-08ece0c71f2b"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1980,
+        -300
+      ],
+      "id": "7c139982-3374-45b5-89d9-253d34be2339",
+      "name": "Wait1",
+      "webhookId": "1ea4914b-5179-42f6-9518-98fb0659d570"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        -300
+      ],
+      "id": "b87587b2-d885-48b4-8544-e52349409884",
+      "name": "Wait2",
+      "webhookId": "db157cf6-ad90-4fe0-8742-8b6b624b6266"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-11T05:52:21.649Z",
+  "versionId": "de71eb11-5efa-4ebc-80f7-a11bf06a827b"
+}
