@@ -1,0 +1,228 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "GitHub1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T18:42:11.283Z",
+  "id": "oI8S3HvauPnsaVAU",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "summarize n8n workflows",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -600,
+        -240
+      ],
+      "id": "b99ed753-8fb1-4cd6-aa87-55920b78fca5",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "value": "pingmepi",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-backups",
+          "mode": "name"
+        },
+        "filePath": "workflows-n8n"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        -240
+      ],
+      "id": "b2389e3f-3baa-4ce9-9856-b9d3f2d6f243",
+      "name": "GitHub",
+      "credentials": {
+        "githubApi": {
+          "id": "YvsSrx4HuzgG4yem",
+          "name": "Karan's Personal Github"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -160,
+        -240
+      ],
+      "id": "2543dc5b-6040-41a2-afbf-a8ce613d70c4",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "pingmepi",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-backups",
+          "mode": "name"
+        },
+        "filePath": "={{ $json.path }}",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -120
+      ],
+      "id": "5dc8fb0d-e6d6-4c75-b93f-999c7f8eef8d",
+      "name": "GitHub1",
+      "credentials": {
+        "githubApi": {
+          "id": "YvsSrx4HuzgG4yem",
+          "name": "Karan's Personal Github"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        460,
+        -120
+      ],
+      "id": "edf1cf56-b29f-426b-aeae-0059abec1a25",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet:thinking",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        360,
+        140
+      ],
+      "id": "9d9af0cc-f4bb-4cc1-a702-b72095ffbc1f",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "Qs73UZvTc5CCzGBb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        620,
+        100
+      ],
+      "id": "042ce38d-fe56-40b8-9c29-95e4a18941ce",
+      "name": "MCP Client",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "slcxxVScCdVdUo16",
+          "name": "ElevenLabs"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T19:30:21.000Z",
+  "versionId": "da595fa9-15d6-47c7-a4ce-03e89241a329"
+}
