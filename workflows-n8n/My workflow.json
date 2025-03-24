@@ -1,0 +1,68 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-12T10:37:35.993Z",
+  "id": "Tx4WIBPDf3cqwaqN",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        -200
+      ],
+      "id": "f2309370-e78e-412b-b25a-8f4637fe8683",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "organization",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/me-karanm",
+          "mode": "url"
+        }
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -200
+      ],
+      "id": "4f22a9b7-8712-4ca5-8bf3-452950685e27",
+      "name": "GitHub",
+      "credentials": {
+        "githubApi": {
+          "id": "5WhsDEnEC1aXABh4",
+          "name": "GitHub account - miles"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-12T10:38:20.000Z",
+  "versionId": "0cc34bd4-b7f1-4b2a-a554-2c11a635a750"
+}
