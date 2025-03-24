@@ -1,0 +1,634 @@
+{
+  "active": false,
+  "connections": {
+    "Vapi Get Status": {
+      "main": [
+        [
+          {
+            "node": "Client Decision Identify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Call ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Call ID": {
+      "main": [
+        [
+          {
+            "node": "Vapi Get Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Get Opportunity ID",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Opportunity ID1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Opportunity ID": {
+      "main": [
+        [
+          {
+            "node": "Update HighLevel Pipeline Interested",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear Redis Vapi Call ID": {
+      "main": [
+        [
+          {
+            "node": "Clear Redis Opportunity ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update HighLevel Pipeline Interested": {
+      "main": [
+        [
+          {
+            "node": "Clear Redis Vapi Call ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update HighLevel Pipeline Not Interested": {
+      "main": [
+        [
+          {
+            "node": "Clear Redis Vapi Call ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Opportunity ID1": {
+      "main": [
+        [
+          {
+            "node": "Update HighLevel Pipeline Not Interested",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Get Pending HighLevel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Make Vapi Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pending HighLevel": {
+      "main": [
+        [
+          {
+            "node": "Send Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pending HighLevel1": {
+      "main": [
+        []
+      ]
+    },
+    "Make Vapi Call": {
+      "main": [
+        [
+          {
+            "node": "Save Call ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Call ID": {
+      "main": [
+        [
+          {
+            "node": "Set Opportunity ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Client Decision Identify": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-18T15:35:08.517Z",
+  "id": "YVLcBkUej1wzl5G7",
+  "meta": null,
+  "name": "Calling Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "=https://api.vapi.ai/call/{{ $json.call_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "d632b379-1230-49db-8d7d-e2a5c28743a2",
+      "name": "Vapi Get Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Get Pending Call From Vapi",
+        "height": 416.8575856689452,
+        "width": 1617.74090946359
+      },
+      "id": "6f565a46-68b5-4250-982d-4ad5eee60070",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "57cc9edf-2ba3-454f-a187-90d3f81cdce5",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "call_id",
+        "key": "Vapi Call ID",
+        "options": {}
+      },
+      "id": "5ec20f5a-2008-4bfc-8144-c4b713f09703",
+      "name": "Get Call ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        180,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "opportunity_id",
+        "key": "GHL Opportunity ID",
+        "options": {}
+      },
+      "id": "a78dcd71-255e-4870-a1d5-6bb942c16718",
+      "name": "Get Opportunity ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7e0542c3-2ac4-406f-bada-50846780f494",
+              "leftValue": "={{ $json.message.content }}",
+              "rightValue": "yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "24ac319c-0445-4040-b16a-28029e2f7358",
+      "name": "If3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        760,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "Vapi Call ID"
+      },
+      "id": "3f3248e8-c431-479f-9a8a-6a1149e4793d",
+      "name": "Clear Redis Vapi Call ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "Vapi Call ID"
+      },
+      "id": "98870142-0d22-49b2-85f2-16861f56d60d",
+      "name": "Clear Redis Opportunity ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "operation": "update",
+        "opportunityId": "={{ $json.opportunity_id }}",
+        "updateFields": {
+          "pipelineId": "1I73Zn1uuRmVXPX7Tke0",
+          "stageId": "c3b4571c-1dfc-43f4-af5f-1bc9add1c852"
+        },
+        "requestOptions": {}
+      },
+      "id": "819be200-8f06-4765-b403-de1a4eac5d77",
+      "name": "Update HighLevel Pipeline Interested",
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "operation": "update",
+        "opportunityId": "={{ $json.opportunity_id }}",
+        "updateFields": {
+          "pipelineId": "1I73Zn1uuRmVXPX7Tke0",
+          "stageId": "3ef110ad-ed9d-4ca9-adf7-9f238038b8b7"
+        },
+        "requestOptions": {}
+      },
+      "id": "ef0eb14a-faa6-4b23-9d09-972996e22b10",
+      "name": "Update HighLevel Pipeline Not Interested",
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "propertyName": "opportunity_id",
+        "key": "GHL Opportunity ID",
+        "options": {}
+      },
+      "id": "024f4553-f6d1-490c-b2bc-7a0937f69c62",
+      "name": "Get Opportunity ID1",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        920,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Get Pending Status and Send Twilio",
+        "height": 245.32037424784107,
+        "width": 505.4622216557527,
+        "color": 3
+      },
+      "id": "1e2c9d25-83a4-4b76-bbbe-202fee00c466",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "80998474-518a-4d69-8cc4-8e6c6f8ffbfb",
+      "name": "Schedule Trigger1",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1140,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "={{ $json.contact.phone }}",
+        "message": "Are you interested in automating the Whatsapp workflow using AI?",
+        "options": {}
+      },
+      "id": "778d0f77-0887-45bd-89f6-cae017e67634",
+      "name": "Send Twilio",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1420,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Get Pending Status and Create Vapi Call",
+        "height": 245.32037424784107,
+        "width": 1065.613809228548,
+        "color": 5
+      },
+      "id": "11466e6f-9061-4fe6-afcf-4656dd300e51",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 15
+            }
+          ]
+        }
+      },
+      "id": "bbe4a637-0d2a-4e43-a25d-a39c332f7b1a",
+      "name": "Schedule Trigger2",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "pipelineId": "1I73Zn1uuRmVXPX7Tke0",
+          "stageId": "1d08e0b6-6e72-4cc6-ae69-20f48da158c7"
+        },
+        "requestOptions": {}
+      },
+      "id": "b76b0815-5d78-4a4f-865b-227394ab7550",
+      "name": "Get Pending HighLevel",
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "opportunity",
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "pipelineId": "1I73Zn1uuRmVXPX7Tke0",
+          "stageId": "1d08e0b6-6e72-4cc6-ae69-20f48da158c7"
+        },
+        "requestOptions": {}
+      },
+      "id": "7570f446-d27a-4c84-ba06-16be427208c5",
+      "name": "Get Pending HighLevel1",
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 2,
+      "position": [
+        200,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.vapi.ai/call",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"assistant\": {\n    \"transcriber\": {\n      \"provider\": \"deepgram\",\n      \"model\": \"nova-2\",\n      \"language\": \"en-AU\"\n    },\n    \"model\": {\n      \"messages\": [\n        {\n          \"role\": \"assistant\",\n          \"content\": \"#Role: (Who they are)\\n\\nYou are an experienced AI solution salesperson.\\n\\nYour role is to ask top real estate agents if they want to have an AI receptionist that can qualify and follow up their leads 24/7.\\n\\n#Task: (What they do)\\n\\nYour task is to converse with the customer, using the provided script, and determine if they would be interested in purchasing our services.\\n\\n#Specifics: (How they do it)\\n\\nYou are a high-converting salesperson who must closely follow the provided script.\\n\\nYou are capable of answering any question the customer provides, however, you are an expert at flowing the conversation back into the script and asking the qualifying questions within the sales script.\\n\\nThese specifics are very important to my career, please follow these. Your ability to accurately follow each part of the script whilst ensuring each of the customer's questions are answered, is greatly appreciated.\\n\\n#Context:\\n\\nThe business:\\n\\nOur company (Proxa) provides top real estate agents an AI receptionist system that can qualify and follow up their leads 24/7.\\n\\nWhat we do:\\n\\nWe call hundreds of people per day, and your role is to talk with these leads and accurately qualify the ones who are interested in our services. Then you collect the user's email, booking time, and booking timezone. And make an appointment by running the 'bookAppointment' function.\\n\\nIf the timeslot function says the time was booked, give the prospects some of the times that were close to what they were looking for. Only provide 3 different times MAX.\\n\\nFor example, if they wanted 1 pm, and some of the available times include 12 or 2 pm, then give them those times.\\n\\nRead the times like words: 1PM is One Pee Em, 1:30pm is One Thirty Pee Em.\\n\\nYou can guess the timezone with the phone number of the prospect. But please confirm with the prospect.\\n\\nAsk the prospect email address whenever they are interested.\"\n        }\n      ],\n      \"provider\": \"openai\",\n      \"model\": \"gpt-4o-mini\",\n      \"temperature\": 0.7,\n      \"maxTokens\": 250\n    },\n    \"endCallFunctionEnabled\": true,\n    \"voice\": {\n      \"provider\": \"11labs\",\n      \"voiceId\": \"WLKp2jV6nrS8aMkPPDRO\",\n      \"inputMinCharacters\": 10,\n      \"stability\": 0.5\n    },\n    \"firstMessageMode\": \"assistant-speaks-first\",\n    \"backgroundSound\": \"office\",\n    \"voicemailDetection\": {\n      \"provider\": \"twilio\",\n      \"voicemailDetectionTypes\": [\n        \"unknown\",\n        \"machine_end_beep\",\n        \"machine_end_silence\",\n        \"machine_end_other\",\n        \"machine_start\"\n      ],\n      \"enabled\": true,\n      \"machineDetectionTimeout\": 31,\n      \"machineDetectionSpeechThreshold\": 3500,\n      \"machineDetectionSpeechEndThreshold\": 2750,\n      \"machineDetectionSilenceTimeout\": 6000\n    },\n    \"recordingEnabled\": true,\n    \"hipaaEnabled\": false,\n    \"silenceTimeoutSeconds\": 30,\n    \"llmRequestDelaySeconds\": 0.1,\n    \"numWordsToInterruptAssistant\": 2,\n    \"maxDurationSeconds\": 300,\n    \"clientMessages\": [\n      \"hang\",\n      \"function-call\",\n      \"status-update\"\n    ],\n    \"messagePlan\": {\n      \"idleMessageMaxSpokenCount\": 3,\n      \"idleTimeoutSeconds\": 7.5\n    },\n    \"serverMessages\": [\n      \"end-of-call-report\",\n      \"function-call\",\n      \"hang\",\n      \"status-update\"\n    ],\n    \"firstMessage\": \"Hello Karan\"\n  },\n  \"phoneNumberId\": \"cfc916e1-2384-4c31-8599-d7663b96d83e\",\n  \"customer\": {\n    \"number\": \"+18486006507\"\n  }\n}\n",
+        "options": {}
+      },
+      "id": "ff3a315c-1e9e-4c9b-8235-60b4a409c898",
+      "name": "Make Vapi Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        80
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "hbx7ZiCLhVdMpDFG",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "Vapi Call ID",
+        "value": "={{ $json.id }}"
+      },
+      "id": "2e01bf21-fbe2-4a5c-a01d-251747307b60",
+      "name": "Save Call ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        500,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "GHL Opportunity ID",
+        "value": "={{ $('Get Pending HighLevel1').item.json.id }}"
+      },
+      "id": "f12e0d92-099a-4650-b731-07ebf9332d51",
+      "name": "Set Opportunity ID",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        680,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Your job is to identify whether the client is viewing to have further follow up call based on the summary transcript of the call\n\nExample:\nIf the client didn't mention his/her thought, return no\n\nExample:\nIf the client mentioned he/she want to further discuss, return yes",
+              "role": "system"
+            },
+            {
+              "content": "={{ $json.summary }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6617f649-bb47-46e7-94c4-a0ff2cb66ace",
+      "name": "Client Decision Identify",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        460,
+        340
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-03-18T15:34:59.039Z",
+      "updatedAt": "2025-03-18T15:34:59.039Z",
+      "id": "zhE2qZwUN4FdUEjT",
+      "name": "andynocode free"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-21T10:44:40.000Z",
+  "versionId": "1deda552-5168-4f55-893f-1ea0adafd952"
+}
