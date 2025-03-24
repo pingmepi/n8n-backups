@@ -1,0 +1,314 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "elevenlabs execute": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "elevenlabs list": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "airbnb list": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "elevenlabs": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "elevenlabs1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        []
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-18T21:42:34.855Z",
+  "id": "ts95semJz7ijHLeA",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "mcp testing",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        280,
+        -240
+      ],
+      "id": "2c3e26b9-2b61-4563-b75a-33cee58a7f57",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -260,
+        -380
+      ],
+      "id": "615c877a-f46f-4d4f-86d7-e5caf8cfa13d",
+      "name": "When chat message received",
+      "webhookId": "ecdb2e24-447c-45ff-b871-c4a031510dbf"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        240,
+        60
+      ],
+      "id": "518127db-7355-4fea-8585-994525553652",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "Qs73UZvTc5CCzGBb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeTool",
+        "toolName": "=generate_audio_simple",
+        "toolParameters": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Tool_Parameters', ``, 'json') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        760,
+        -40
+      ],
+      "id": "74eb1fa4-eab7-481d-a8c2-b2c4fb800dcf",
+      "name": "elevenlabs execute",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "slcxxVScCdVdUo16",
+          "name": "ElevenLabs"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        600,
+        -20
+      ],
+      "id": "44d0e27d-1a3b-4688-9ea2-3f8d1f70cd52",
+      "name": "elevenlabs list",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "slcxxVScCdVdUo16",
+          "name": "ElevenLabs"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        460,
+        120
+      ],
+      "id": "6f0d50af-f88e-449e-a03a-b7e7ce5c672c",
+      "name": "airbnb list",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "nSKBIqxmEOueMKyn",
+          "name": "Airbnb"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "listPrompts"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        940,
+        -20
+      ],
+      "id": "554fa5f9-30f2-4c6c-95c2-2efe89ada127",
+      "name": "elevenlabs",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "slcxxVScCdVdUo16",
+          "name": "ElevenLabs"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getPrompt",
+        "promptName": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt_Name', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-mcp.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        -20
+      ],
+      "id": "d6030070-0d2d-451a-ba2e-3ab04b38b765",
+      "name": "elevenlabs1",
+      "credentials": {
+        "mcpClientApi": {
+          "id": "slcxxVScCdVdUo16",
+          "name": "ElevenLabs"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -280,
+        100
+      ],
+      "id": "e25f8e32-518a-4b91-950c-6498d0a5b348",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        280
+      ],
+      "id": "e4f78385-4bb6-4597-b998-4e363cddb58b",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "Qs73UZvTc5CCzGBb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        -80
+      ],
+      "id": "4bf8771d-da0c-4c47-8061-89555c00ad67",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-19T14:25:00.000Z",
+  "versionId": "c336f5bf-1e2f-4c54-ac00-704a4e3536b2"
+}
