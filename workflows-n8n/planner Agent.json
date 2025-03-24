@@ -1,0 +1,795 @@
+{
+  "active": false,
+  "connections": {
+    "Map Searcher": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Search": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Calendar Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creating Calendar Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Calendar Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Calendar Event": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Draft Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Web Crawler": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT 4o mini Vision": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deepseek Reasoner Groq": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Deepseek R1 Planner Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deepseek Planner": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Deepseek R1 Planner Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Transform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Transform": {
+      "main": [
+        [
+          {
+            "node": "Deepseek R1 Planner Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deepseek R1 Planner Agent": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-18T15:35:50.443Z",
+  "id": "DPRro01CfHejlGbj",
+  "meta": null,
+  "name": "planner Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "toolDescription": "This bot help you to scrap all contact information for lead gen from google map. Input query \"q\" for search input, \"ll\" for latlng, \"page\" is for the current page. For \"ll\", please follow coordinates in this format: @latitude,longitude,zoom, for example: @40.6973709,-74.1444871,11z.",
+        "url": "https://google.serper.dev/maps",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "q"
+            },
+            {
+              "name": "ll"
+            },
+            {
+              "name": "page"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "X-API-KEY",
+              "valueProvider": "fieldValue",
+              "value": "xxxxx"
+            }
+          ]
+        }
+      },
+      "id": "4150e538-4d6d-4001-81f8-f1bd11dc3a93",
+      "name": "Map Searcher",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        620,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "This bot help you to search it from internet result perplexity, pass \"question\" as parameter for the searching question.",
+        "method": "POST",
+        "url": "https://api.perplexity.ai/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"model\": \"sonar\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"{question}\"\n    }\n  ]\n}"
+      },
+      "id": "f44d86e4-e4a2-438f-9ca5-63de3165b0e7",
+      "name": "Perplexity Search",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        760,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "dc5a680c-5b1e-4d6d-aa87-4daccd954d2b",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        760,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "cc7e5cea-0168-4fee-bb51-f67b4ecb1ddc",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1140,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst chatInputs = items.map((item) => item.json.body.chatInput);\nreturn { \n  chatInput: chatInputs[0]\n};\n"
+      },
+      "id": "08bb150f-c8e8-4721-baab-756ae40c0828",
+      "name": "Format Transform",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        60
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool to delete a calendar event.",
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "andylo@proxa.cc",
+          "mode": "list",
+          "cachedResultName": "Meeting"
+        },
+        "eventId": "={{ $fromAI(\"eventId\",\"it is the event id of the calendar event\") }}",
+        "options": {}
+      },
+      "id": "b3790f11-bc37-4371-9102-9ac545f06a22",
+      "name": "Delete Calendar Event",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool to change the data and time of the event.",
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "andylo@proxa.cc",
+          "mode": "list",
+          "cachedResultName": "Meeting"
+        },
+        "eventId": "={{ $fromAI(\"eventId\",\"it is the event id of the calendar event\") }}",
+        "updateFields": {
+          "end": "={{ $fromAI(\"eventEndTime\",\"it is the meeting date ending time\") }}",
+          "start": "={{ $fromAI(\"eventStartTime\",\"it is the meeting date starting time\") }}"
+        }
+      },
+      "id": "fb8b7f0e-3a2c-42d9-97bb-b55f1b093fec",
+      "name": "Update Calendar Event",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        380,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Use this tool to create a new calendar event.",
+        "calendar": {
+          "__rl": true,
+          "value": "andylo@proxa.cc",
+          "mode": "list",
+          "cachedResultName": "Meeting"
+        },
+        "start": "={{ $fromAI(\"eventStartTime\",\"it is the meeting date starting time\") }}",
+        "end": "={{ $fromAI(\"eventEndTime\",\"it is the meeting date ending time\") }}",
+        "additionalFields": {
+          "attendees": [
+            "={{ $fromAI(\"emailAddressAttendee\",\"it is the email address of the attendee\") }}"
+          ],
+          "summary": "={{ $fromAI(\"eventName\",\"the name of the calendar event\") }}"
+        }
+      },
+      "id": "f0d6662f-2de9-4aa3-95ca-bd677c59af6a",
+      "name": "Creating Calendar Event",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        220,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "andylo@proxa.cc",
+          "mode": "list",
+          "cachedResultName": "Meeting"
+        },
+        "options": {
+          "timeMin": "={{ $now }}",
+          "timeMax": "={{ $now.plus({ week: 4 }) }}"
+        }
+      },
+      "id": "e1a0e49f-b776-4f4f-acd7-d8d66d2dd4ca",
+      "name": "Get Calendar Event",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "=- Use this tool when the user explicitly or implicitly requests drafting (e.g., \"Prepare a draft\").  \n- DEFAULT to the Draft tool if no explicit instruction is provided in the email body. ",
+        "resource": "draft",
+        "subject": "={{ $fromAI(\"emailSubject\",\"it is the email subject\") }}",
+        "message": "={{ $fromAI(\"emailBody\",\"it is the email message body\") }}",
+        "options": {
+          "sendTo": "={{ $fromAI(\"emailAddressReceipient\",\"it is the email address of recipient\") }}"
+        }
+      },
+      "id": "7c0e368c-9d13-4910-aa4c-cf4b2447f6e3",
+      "name": "Draft Tool",
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        900,
+        520
+      ],
+      "webhookId": "01a774ea-71dc-4a2f-9ce1-b9223f30c07c"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "- Use this tool ONLY when the email body explicitly mentions replying to an email (e.g., \"Please reply to this email\").  \n- DEFAULT to the Draft tool if no specific instruction about replying is provided. ",
+        "operation": "reply",
+        "messageId": "={{ $json.query.threadId }}",
+        "emailType": "text",
+        "message": "={{ $fromAI(\"emailBody\",\"it is the email message body\") }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "34142fa4-9c93-47ec-8887-34ad12bb9bb2",
+      "name": "Reply Tool",
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1040,
+        560
+      ],
+      "webhookId": "68f9e20c-a83c-4cc1-952e-467d6d8476ee"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "- Use this tool ONLY when the email body explicitly mentions sending an email (e.g. \"Please send this email to\") AND there is NO `threadId` provided.  \n- DEFAULT to the Draft tool if nothing is specified.",
+        "sendTo": "={{ $fromAI(\"emailAddressReceipient\",\"it is the email address of recipient\") }}",
+        "subject": "={{ $fromAI(\"emailSubject\",\"it is the email subject\") }}",
+        "emailType": "text",
+        "message": "={{ $fromAI(\"emailBody\",\"it is the email message body\") }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "717e46f8-ee7c-4194-b740-12aee239dff0",
+      "name": "Send Tool",
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1180,
+        600
+      ],
+      "webhookId": "928f5a02-a550-403e-a9c0-c1452dbccd32"
+    },
+    {
+      "parameters": {
+        "resource": "database",
+        "databaseId": {
+          "__rl": true,
+          "value": "1779f365-d12d-81c4-907c-d6c53615ea03",
+          "mode": "list",
+          "cachedResultName": "Sales CRM"
+        }
+      },
+      "id": "08588a94-94e8-4f82-9117-4927facd02ce",
+      "name": "Notion",
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        1260,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "This is a web crawler, you can input URL for scrapping the website content.",
+        "url": "https://scrape.serper.dev",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "url"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": "X-API-KEY",
+              "valueProvider": "fieldValue",
+              "value": "xxxxx"
+            }
+          ]
+        }
+      },
+      "id": "5f497ff0-48bc-44f4-9bb2-0fb0920ff3e3",
+      "name": "Web Crawler",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "rpc/match_documents"
+      },
+      "id": "eb79aec6-7040-4bc1-98e5-715d9ce6777a",
+      "name": "Supabase",
+      "type": "n8n-nodes-base.supabaseTool",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## AI Agent",
+        "height": 435.02466960366723,
+        "width": 1376.0351716477767,
+        "color": 6
+      },
+      "id": "e10881fa-c413-458f-a63a-0c99f0666911",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Google Calendar",
+        "height": 207.46086200700495,
+        "width": 453.73656947225834,
+        "color": 2
+      },
+      "id": "8e0a65d1-3e9c-4820-8702-b2503f47e9f5",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Web & Map Search, Scraper\n",
+        "height": 205.76583122104051,
+        "width": 366.23157795550344,
+        "color": 3
+      },
+      "id": "59a909d7-0857-4c93-babe-e935690c4b34",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        480,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Gmail",
+        "height": 205.76583122104046,
+        "width": 356.5952162586524,
+        "color": 4
+      },
+      "id": "057add63-fa5b-4634-8638-6c1f8d908543",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        860,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Database",
+        "height": 205.76583122104046,
+        "width": 209.39584930545982,
+        "color": 5
+      },
+      "id": "962d2bad-7b8c-4973-8694-2133c6875561",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Advanced Reasoning & Vision\n",
+        "height": 205.76583122104046,
+        "width": 387.6349458002386
+      },
+      "id": "6428f9e9-39cd-4bc7-9c44-96fa10ce7513",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "This is open ai gpt 4o mini Vision model, pass image_url to let open ai gpt to read see you image and return the description.",
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"user\",\n        \"content\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"What is in this image?\"\n          },\n          {\n            \"type\": \"image_url\",\n            \"image_url\": {\n              \"url\": \"{image_url}\"\n            }\n          }\n        ]\n      }\n    ],\n    \"max_tokens\": 300\n  }"
+      },
+      "id": "409bc59d-9a4e-4535-ad49-9a17b7e887d7",
+      "name": "GPT 4o mini Vision",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1700,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "toolDescription": "This is a Deepseek Reasoner LLM model that provide strong reasoning capability. Put you question as {question} to start generating with this LLM. You can use this before sending email or message.",
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n\"model\": \"deepseek-r1-distill-llama-70b\",\n\"messages\": [{\n    \"role\": \"user\",\n    \"content\": \"{question}\"\n}]\n}",
+        "optimizeResponse": true,
+        "dataField": "choices"
+      },
+      "id": "51dd4d04-d9b9-4600-8bda-6386b88a7fad",
+      "name": "Deepseek Reasoner Groq",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d7adb34f-6806-4def-97f3-43c16a3702cd",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        220
+      ],
+      "webhookId": "7b62ab6c-0acb-4ce5-a103-7ba00f2e9aff"
+    },
+    {
+      "parameters": {
+        "model": "=deepseek-r1-distill-llama-70b",
+        "options": {
+          "baseURL": "https://api.groq.com/openai/v1"
+        }
+      },
+      "id": "31600c29-030b-4a3f-b0a2-c304beb6344a",
+      "name": "Deepseek Planner",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        460,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5d49473e-94e2-4906-b861-e3cc6471ad71",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "e32a5a6f-cb56-4124-a662-5542c477f062",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        80,
+        60
+      ],
+      "webhookId": "5d49473e-94e2-4906-b861-e3cc6471ad71"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Overview\nYou are a planning AI that creates explicit tool-execution sequences for an assistant agent. Your output must be direct commands using available tools.\n\n## Context\n- The executor agent can ONLY act through these specific tools\n- Never describe steps to users - only create executable instructions\n- Always specify exact tool names and required parameters\n\n## Instruction Format Requirements\n1. Always begin with \"EXECUTE:\" followed by tool commands\n2. One tool per line using this format: [TOOL_NAME] {parameters}\n3. Include concrete parameters (dates/times/emails/etc) when available\n4. Never add explanations or commentary\n5. Use today's date/time context: {{ $now }}\n\n## Available Tools (MUST USE THESE EXACT NAMES):\n1. Map Searcher - Parameters: (query)\n2. Perplexity Search - Parameters: (query)\n3. Delete Calendar Event - Parameters: (event_id)\n4. Update Calendar Event - Parameters: (event_id, new_details)\n5. Creating Calendar Event - Parameters: (title, datetime, details)\n6. Get Calendar Event - Parameters: (date_range)\n7. Draft Tool - Parameters: (recipient, subject, body)\n8. Reply Tool - Parameters: (email_id, message)\n9. Send Tool - Parameters: (draft_id)\n10. Notion - Parameters: (database_id, action, content)\n11. Web Crawler - Parameters: (url)\n12. GPT 4o mini Vision - Parameters: (image_url)\n13. Deepseek Reasoner Groq - Parameters: (prompt)\n\n## Example Conversion\nUser Request: \"Show my schedule for next week\"\n\nBAD OUTPUT (what you did before):\n\"I will use Get Calendar Event tool to...\"\n\nGOOD OUTPUT:\nEXECUTE:\n[Get Calendar Event] {date_range: \"{{ $now }} and {{ $now.plus({ week: 1 }) }}\"}\n\n## Revised SOP\n1. Analyze user request for required tools\n2. Break into sequential tool operations\n3. Format as EXECUTE: block with tool+parameters\n4. Never explain - only list tool commands\n5. Use exact tool names and required parameters\n\n## Final Output Structure\nEXECUTE:\n[TOOL_NAME] {parameter1: value1, parameter2: value2}\n[TOOL_NAME] {parameter1: value1}\n..."
+        }
+      },
+      "id": "b6ea6a2d-b849-4f45-88cb-b2d8374d5771",
+      "name": "Deepseek R1 Planner Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        420,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "=You are a helpful assistant, you have a Deepseek Reasoner that provide powerful reasoning LLM model that can assist you one decision making or deep researching. \n\nCall Deepseek Reasoner on following situation:\n- Drafting or senging an email, think deeply to prepare a better content\n- After calling GPT 4o mini Vision, use Deepseek Reasoner to explain, remember to PASS ALL RESPONSE from 4o mini Vision to Deepseek Reasoner\n- After calling Perplexity, use Deepseek Reasoner to explain, remember to PASS ALL RESPONSE from Perplexity to Deepseek Reasoner\n- A question that need to research\n\nYou also have following tools:\n1. Map Searcher - Parameters: (query)\n2. Perplexity Search - Parameters: (query)\n3. Delete Calendar Event - Parameters: (event_id)\n4. Update Calendar Event - Parameters: (event_id, new_details)\n5. Creating Calendar Event - Parameters: (title, datetime, details)\n6. Get Calendar Event - Parameters: (date_range)\n7. Draft Tool - Parameters: (recipient, subject, body)\n8. Reply Tool - Parameters: (email_id, message)\n9. Send Tool - Parameters: (draft_id)\n10. Notion - Parameters: (database_id, action, content)\n11. Web Crawler - Parameters: (url)\n12. GPT 4o mini Vision - Parameters: (image_url)\n13. Deepseek Reasoner Groq - Parameters: (prompt)\n\nWhen passing text to Deepseek Reasoner, REMOVE ALL SYMBOL and quotation mark like `\"`, also remove all \\n, \\t etc input so that the content will not crash the json.\n\nTry to return the original content from this tool for if you calling it.\n\nToday is {{ $now }}"
+        }
+      },
+      "id": "83a26ce9-79d0-4f00-9c0d-d557cc5bac1f",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        780,
+        120
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-18T15:35:50.443Z",
+  "versionId": "9df0ff4c-eea7-4f16-ad62-ead9fd669d91"
+}
