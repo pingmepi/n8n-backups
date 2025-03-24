@@ -1,0 +1,551 @@
+{
+  "active": false,
+  "connections": {
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "If audio message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If audio message": {
+      "main": [
+        [
+          {
+            "node": "Get audio binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get audio binary": {
+      "main": [
+        [
+          {
+            "node": "Extract url from binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract url from binary": {
+      "main": [
+        [
+          {
+            "node": "Download audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download audio": {
+      "main": [
+        [
+          {
+            "node": "OpenAI1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar Create": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calendar Get": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menu Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ordering Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Business Cloud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-18T15:36:08.057Z",
+  "id": "wqQ9aaCTkOfmqp5J",
+  "meta": null,
+  "name": "Restaurent booking agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "5a55f065-fc37-4732-bc20-e65d35134bb5",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        860,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ]
+      },
+      "id": "09bff94a-4b92-4c0c-868a-9d1e578f36c6",
+      "name": "WhatsApp Trigger",
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        60,
+        80
+      ],
+      "webhookId": "1a250de0-2013-4012-b645-d631cd4e1e29"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "={{ $('WhatsApp Trigger').first().json.metadata.phone_number_id }}",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').first().json.messages[0].from }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "id": "1d43b006-597c-429c-92fc-e731a5c1a2ef",
+      "name": "WhatsApp Business Cloud",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Internal Knowledge AI Agent for Whatsapp, Slack and Telegram\n",
+        "height": 512,
+        "width": 1646,
+        "color": 4
+      },
+      "id": "ccb54301-e852-4842-a5d4-245f74e8deca",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bd00b749-cc75-4c91-b2d0-9e3ca59e3a15",
+              "leftValue": "={{ $json.messages[0].type }}",
+              "rightValue": "audio",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ac224d42-cef8-4163-a219-882f95a87c2a",
+      "name": "If audio message",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.facebook.com/v19.0/{{ $json.messages[0].audio.id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "id": "5355866d-1102-4673-8365-0970dbcb3fb1",
+      "name": "Get audio binary",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "id": "35127dd5-e9bf-4878-9029-7e2c25ef646f",
+      "name": "Extract url from binary",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        560,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer EAAXww6EudJIBO2LXlXVuNsQPh6Pfg24YiCl6XaWFA4laZBU3tt1OZCguLwVAx9YOh2t6cPZA9IGO0snaZANkyZCE9ToRltRT6VnAsktjmw73dB7vgc04O1S1k4HyPjSoHw6MxnDrR3lcs6GsW7vLFQlNjQdyMkCwqJLJYxhrDHD5rx9dEjtX3VD5ZC9mBgr3vBnaZAv2XZAy9ZCNZAqfv6"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7a332388-b740-42d8-a468-f85f789715be",
+      "name": "Download audio",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "id": "80b1e9b6-d305-41a5-9937-28c5bd84f5a2",
+      "name": "OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.6,
+      "position": [
+        900,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "4",
+        "contextWindowLength": 10
+      },
+      "id": "c24da941-9905-40e8-a0ef-41229b601f06",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        1020,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This an our \"Calendar Create\" tool, you need to pass start_time, end_time for booking, also pass name for the timeslot.",
+        "calendar": {
+          "__rl": true,
+          "value": "xxxxxxxxxxxxxxxxxxxxxxx@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Restaurant"
+        },
+        "start": "={{ $fromAi(\"start_time\") }}",
+        "end": "={{ $fromAi(\"end_time\") }}",
+        "additionalFields": {
+          "summary": "={{ $fromAi(\"name\") }}"
+        }
+      },
+      "id": "00780c14-a293-48f4-b3d9-65c889e048f8",
+      "name": "Calendar Create",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        1360,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This is \"Calendar Get\" tool for you to check is there any event in certain timeslot, pass \"start_time\" to search for after and \"end_time\" to search for before.",
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c_02dd7d288420db73bdcb6039c47427ff2ee454a541b2641d836ad9105e513c67@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Restaurant"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $fromAi(\"start_time\") }}",
+          "timeMax": "={{ $fromAi(\"end_time\") }}"
+        }
+      },
+      "id": "5e846998-da63-452d-8686-cfdac7440fb7",
+      "name": "Calendar Get",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        1240,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This is the \"Menu Tool\", you can get the menu of our restaurant.",
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/xxxxxxxxxxxxxxxxxxxxxxxxxxx/edit?usp=sharing"
+      },
+      "id": "86f5dc77-1bcb-413f-a515-4d41406e24d3",
+      "name": "Menu Tool",
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        1220,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This is the \"food order sheet\", you can put the name, contact and food under this sheet. Column included name, contact, delivery_address, food",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "mode": "list",
+          "cachedResultName": "Tutorial 9.2 perplexity",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/xxxxxxxxxxxxxxxxxxxxxxxxxxx/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/xxxxxxxxxxxxxxxxxxxxxxxxxxx/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "name": "={{ $fromAi(\"name\") }}",
+            "contact": "={{ $fromAi(\"contact\") }}",
+            "food": "={{ $fromAi(\"food\") }}",
+            "delivery_address": "={{ $fromAi(\"delivery_address\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "contact",
+              "displayName": "contact",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "delivery_address",
+              "displayName": "delivery_address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "food",
+              "displayName": "food",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sessionId",
+              "displayName": "sessionId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "action",
+              "displayName": "action",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "chatInput",
+              "displayName": "chatInput",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "06a7375c-01f0-4ac7-8414-8c2b9898d7dc",
+      "name": "Ordering Sheets",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        1500,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a restaurant agent, you can handle following task:\n\n1. Send out our menu, the menu content are in \"Menu Tool\"\n2. Check availability with \"Google Calendar Get\" tool\n3. Make reservation with \"Calendar Create\" tool, you will need a time and name, remember to check the availability before creating the event, each timeslot only support 1 reservation.\n4. Place take away order, you can put the record on \"food order sheet\"\n\nYou can reteieve memory from conversaion history.\n\nMore information:\nToday is {{ $now }}\nUser phone number: \n\nHere's the user's question:\n{{ $json.text }}",
+        "options": {}
+      },
+      "id": "b891530c-ccae-454e-9109-02f55ce03ba8",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        1080,
+        80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-18T15:36:29.000Z",
+  "versionId": "b2a65384-c9f2-42d1-8374-e17db69ea5d0"
+}
