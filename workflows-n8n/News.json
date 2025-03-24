@@ -1,0 +1,388 @@
+{
+  "active": false,
+  "connections": {
+    "RSS Feeds": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "getContent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getContent": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "summarizeArticles": {
+      "main": [
+        [
+          {
+            "node": "setFields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "setFields1": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-19T18:00:04.962Z",
+  "id": "Ay7U1w97o4aGhMgI",
+  "meta": null,
+  "name": "News",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return[\n  { \"json\": { \"feed\": \"https://www.accountingtoday.com/feed?rss=true\" } },\n]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        400
+      ],
+      "id": "59dd7e3a-09ce-45ea-a41a-9f00471f75f8",
+      "name": "RSS Feeds"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        620,
+        400
+      ],
+      "id": "be37a7bd-40ab-4c6c-b413-1451666adaa5",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.feed }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        500
+      ],
+      "id": "0595cf29-44db-446a-9180-0fcae4bb7c9c",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aabfdeff-d854-4ea8-9446-a77fae3c589e",
+              "leftValue": "={{ $('RSS Read').first().json.pubDate }}",
+              "rightValue": "={{ DateTime.now().minus({ days: 7 }) }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        840,
+        300
+      ],
+      "id": "1cb4a778-ea4c-433f-83d7-6c90fb97ceee",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "maxItems": 12
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        260
+      ],
+      "id": "9df836cd-e44d-479c-b953-b4591fb54450",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('If').item.json.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        260
+      ],
+      "id": "92403ded-3c81-43d0-8e04-96b33b3f2267",
+      "name": "getContent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1620,
+        640
+      ],
+      "id": "dbf9c0ef-d587-4b05-a1c3-cb9e22f51bee",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "abPfqJNhQKBKqHm4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        260
+      ],
+      "id": "58927702-fca5-45d2-82e5-d1824dae8e74",
+      "name": "Markdown",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }} {{ $('Limit').item.json.title }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a helpful, intelligent summarizer assistant. Your task is to identify the  main body text of the article and create a detailed summary of its contents. Identify any key subjects or themes and the main topic of the article.\n\nThe Main Summaries should be no more than 600 characters and should not be less than 320 Characters. The Mini Summary should be no more than 130 characters and should not be less than 100 Characters. The title should not be more than 40 Charcters do not include any extra words or phrases like \"summary of article\" or \"the article discusses\"\n\nGenerate a short description (150 characters), a main description (600 characters), and a title (40 characters) for the following. All files should have consistenet format\n"
+            },
+            {
+              "message": "Hi"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1720,
+        260
+      ],
+      "id": "5c683117-8d03-4f3a-9077-afd76c3ba4b4",
+      "name": "summarizeArticles",
+      "retryOnFail": true,
+      "maxTries": 4
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.output[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2300,
+        260
+      ],
+      "id": "ffe09c45-7ba8-40ef-9e4d-bd35c7bb66a0",
+      "name": "setFields1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        140,
+        400
+      ],
+      "id": "214c9a42-7e16-41f3-a25a-fe65234d0be6",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2960,
+        260
+      ],
+      "id": "d401c7c9-b884-4d41-9b59-d1fe13463fea",
+      "name": "Google Sheets"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"title\": \"Embracing Independence in Accounting\",\n    \"miniSummary\": \"The article emphasizes the importance of independence in accounting firms, highlighting benefits such as flexibility, investment in technology, and the ability to attract talent.\",\n    \"shortDescription\": \"The article discusses how independence in accounting firms enables flexibility, investment in technology, and better talent management.\",\n    \"mainDescription\": \"In a rapidly evolving accounting landscape shaped by technology and external investments, the article advocates independence as a crucial model for firms. Independence allows for local decision-making, flexibility, and focused investment in long-term growth strategies. It enables firms to invest in cutting-edge technologies and workforce development while maintaining autonomy. The partnership model is presented as a viable path, supporting adaptability and emphasizing strategic growth over quick gains. The article underscores that true innovation stems from a commitment to independent values, ultimately benefiting clients and communities alike.\"\n  },\n  {\n    \"title\": \"Crypto's Clout in Washington is Soaring\",\n    \"miniSummary\": \"\",\n    \"shortDescription\": \"The U.S. crypto industry is gaining traction in politics, with key legislation and influential allies emerging.\",\n    \"mainDescription\": \"The cryptocurrency industry is increasingly influential in Washington, exemplified by the rise of Democratic Senator Kirsten Gillibrand. With her support, a bipartisan approach towards stablecoin regulation is materializing, challenging previous opposition led by skeptics like Senator Elizabeth Warren. The industry's political power was showcased through significant campaign contributions, which helped replace antagonistic officials. Gillibrand advocates for a balance between fostering the growing crypto sector and implementing necessary regulations to prevent failures while gaining bipartisan support from established senators such as Cynthia Lummis.\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1920,
+        620
+      ],
+      "id": "562e54df-6aad-4dee-b2c5-718e0cd3d6e1",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-21T16:07:43.000Z",
+  "versionId": "60fe39b0-b139-4711-a1e9-5711f3490a1a"
+}
