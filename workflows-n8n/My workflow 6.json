@@ -1,0 +1,68 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T07:37:37.500Z",
+  "id": "uMfI8izc07uZBl1q",
+  "meta": null,
+  "name": "My workflow 6",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "46779c13-4904-447f-9523-dad0282c9450",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "73324ff1-ae77-472b-9a4e-4e4b121abd2a",
+      "name": "Webhook",
+      "webhookId": "46779c13-4904-447f-9523-dad0282c9450"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from email_validator import validate_email, EmailNotValidError\n\ndef is_valid_email_with_library(email: str) -> bool:\n    try:\n        validate_email(email)\n        return True\n    except EmailNotValidError:\n        return False\n\n# Accessing the input data\nemail = input[0]['json']['email']\nexpected = input[0]['json'].get('expected', 'Yes')  # fallback if 'expected' is not set\n\n# Validation logic\nis_valid = is_valid_email_with_library(email)\nresult = \"Yes\" if is_valid else \"No\"\nstatus = \"MATCH\" if result == expected else \"MISMATCH\"\n\n# Return result\noutput = {\n    \"email\": email,\n    \"result\": result,\n    \"expected\": expected,\n    \"status\": status\n}\nreturn [output]\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "2c4af13a-3b5c-4002-95ec-3b168e1b651e",
+      "name": "Code"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "email": "kmandalam@gmail.com"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T09:45:39.000Z",
+  "versionId": "100d0d89-e61d-4b3e-aff7-9da01512cc27"
+}
