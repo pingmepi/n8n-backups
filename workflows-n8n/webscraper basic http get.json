@@ -1,0 +1,151 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-12T07:40:53.842Z",
+  "id": "sx3OFJoYp7hdyvzK",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "webscraper basic http get",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1740,
+        -80
+      ],
+      "id": "06263df4-63ae-476b-890e-c831315fde1b",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://www.mileseducation.com/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1380,
+        -80
+      ],
+      "id": "7c533f7f-071a-4a6d-ab68-91102f5b3d52",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are a helpful, intelligent web scraping chat assistant. "
+            },
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "your role is to convert the raw markdown presented and convert it to structured data. \nFetch all URLs also from the navbar, footer and header. \nthe URL for relative to absolute conversion is https://www.mileseducation.com. This is useful for images and other relative paths. \n"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        -620,
+        -80
+      ],
+      "id": "15207278-e3f4-4793-9696-15da8469abf2",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        160
+      ],
+      "id": "b20d14bd-fd3d-4e52-9469-d5b129fd93c7",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "Qs73UZvTc5CCzGBb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\"links\": [\"array\",\"of\",\"absolute URLs\",\"of\",\"links\"],\n\"body\": \"this is body text\",\n\"images\": [\"array\",\"of\",\"absolute\",\"URLs\",\"of\",\"images\"],\n\"summary\": \"one line summary of the blog\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        -440,
+        140
+      ],
+      "id": "40b4c36b-99f9-448f-b67a-eb25dd7c65cb",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-12T10:36:03.000Z",
+  "versionId": "beafb632-34c3-4869-b79e-cec5181f7493"
+}
