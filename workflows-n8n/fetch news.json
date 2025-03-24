@@ -1,0 +1,436 @@
+{
+  "active": false,
+  "connections": {
+    "RSS Feeds": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "getContent": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "summarizeArticles": {
+      "main": [
+        [
+          {
+            "node": "setFields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "summarizeArticles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "getContent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-24T18:26:39.276Z",
+  "id": "nXPnohGYH028VMBC",
+  "meta": null,
+  "name": "fetch news",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "return[\n  { \"json\": { \"feed\": \"https://www.accountingtoday.com/feed?rss=true\" } },\n  { \"json\": { \"feed\": \"https://news.google.com/rss/search?q=when:24h+allinurl:bloomberg.com&hl=en-US&gl=US&ceid=US:en\" } },\n]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1820,
+        500
+      ],
+      "id": "27caac51-5eed-4a93-a18c-f0ee763221d0",
+      "name": "RSS Feeds"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1600,
+        500
+      ],
+      "id": "adc4688b-24d7-40d0-be52-2a55bfcf1c43",
+      "name": "Loop Over Items",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.feed }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.1,
+      "position": [
+        -1320,
+        600
+      ],
+      "id": "8cc8348c-b626-4f91-84ff-7cb330f8b02a",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aabfdeff-d854-4ea8-9446-a77fae3c589e",
+              "leftValue": "={{ $('RSS Read').first().json.pubDate }}",
+              "rightValue": "={{ DateTime.now().minus({ days: 7 }) }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "afterOrEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1380,
+        400
+      ],
+      "id": "3e09fdc3-e389-46a5-ba23-a7066d290db3",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        -1140,
+        360
+      ],
+      "id": "191a1fcd-68f0-43a7-a564-707c8f29a9ad",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('If').item.json.link }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -540,
+        400
+      ],
+      "id": "a948976d-bb0e-4f04-a0a6-e5b88133a18b",
+      "name": "getContent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "openai/gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        920
+      ],
+      "id": "c55c50c2-c300-42f6-820d-4aeee0624407",
+      "name": "OpenAI Chat Model1"
+    },
+    {
+      "parameters": {
+        "html": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        40,
+        460
+      ],
+      "id": "999d84ee-ddab-4f7c-914e-7294f89497ae",
+      "name": "Markdown",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a helpful, intelligent summarizer assistant. Your task is to identify the  main body text of the article and create a detailed summary of its contents. Identify any key subjects or themes and the main topic of the article.\n\nThe Main Summaries should be no more than 600 characters and should not be less than 320 Characters. The Mini Summary should be no more than 130 characters and should not be less than 100 Characters. The title should not be more than 40 Charcters do not include any extra words or phrases like \"summary of article\" or \"the article discusses. Assign one category to each article from these options:\n\n\"Business & Economy\"\n\n\"Markets & Investments\"\n\n\"Valuation, Mergers and Acquisition\"\n\nTech in Accounting\n\n\"Accounting Trivia\"\n\n\"The Accounting Profession\"\n\nIf an news article does not fall into one of these categories disscard i.\n\nGenerate a short description (150 characters), a main description (600 characters),title (40 characters), and a category  for the following. All files should have consistenet format\n"
+            },
+            {
+              "message": "Hi"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1340,
+        560
+      ],
+      "id": "47f1e279-3450-4bef-8f70-1904a4cf01bc",
+      "name": "summarizeArticles",
+      "retryOnFail": true,
+      "maxTries": 4
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.output[0] }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1880,
+        540
+      ],
+      "id": "b06a395d-1773-42a0-b4f0-ad5520fcbe02",
+      "name": "setFields1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2080,
+        500
+      ],
+      "id": "47cf32d3-8667-4a48-8b86-fa3fbb9a2c20",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"title\": \"Embracing Independence in Accounting\",\n    \"miniSummary\": \"The article emphasizes the importance of independence in accounting firms, highlighting benefits such as flexibility, investment in technology, and the ability to attract talent.\",\n    \"shortDescription\": \"The article discusses how independence in accounting firms enables flexibility, investment in technology, and better talent management.\",\n    \"mainDescription\": \"In a rapidly evolving accounting landscape shaped by technology and external investments, the article advocates independence as a crucial model for firms. Independence allows for local decision-making, flexibility, and focused investment in long-term growth strategies. It enables firms to invest in cutting-edge technologies and workforce development while maintaining autonomy. The partnership model is presented as a viable path, supporting adaptability and emphasizing strategic growth over quick gains. The article underscores that true innovation stems from a commitment to independent values, ultimately benefiting clients and communities alike.\",\n    \"category\": \"The Accounting Profession\",\n    \"sourceLink\": \"link of the article\",\n    \"imageLink\": \"link of the image of the article\"\n  },\n  {\n    \"title\": \"Crypto's Clout in Washington is Soaring\",\n    \"miniSummary\": \"The U.S. crypto industry is gaining traction in politics, with key legislation and influential allies emerging.\",\n    \"shortDescription\": \"The U.S. crypto industry is gaining traction in politics, with key legislation and influential allies emerging.\",\n    \"mainDescription\": \"The cryptocurrency industry is increasingly influential in Washington, exemplified by the rise of Democratic Senator Kirsten Gillibrand. With her support, a bipartisan approach towards stablecoin regulation is materializing, challenging previous opposition led by skeptics like Senator Elizabeth Warren. The industry's political power was showcased through significant campaign contributions, which helped replace antagonistic officials. Gillibrand advocates for a balance between fostering the growing crypto sector and implementing necessary regulations to prevent failures while gaining bipartisan support from established senators such as Cynthia Lummis.\",\n    \"category\": \"Markets & Investments\",\n    \"sourceLink\": \"link of the article\",\n    \"imageLink\": \"link of the image of the article\"\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1500,
+        900
+      ],
+      "id": "5bb217bf-c903-444b-af02-5ac240cbc974",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "76afccb1-f76e-47c3-9859-3222a9d487a7",
+              "name": "data",
+              "value": "={{ $json.data }}{{ $('Limit').item.json.link }}{{ $('Limit').item.json.enclosure.url }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        780,
+        540
+      ],
+      "id": "24ad6dab-c5e3-45ea-b542-a3d7ad6f4cc8",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -880,
+        400
+      ],
+      "id": "bde5f52e-500e-4d28-a551-016561e6c147",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f01eda85-2ea0-4f3c-84df-ebfbac1ce4af",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-24T18:26:44.000Z",
+  "versionId": "380ecf6f-ee3d-4dbc-a63a-94e8b33352bf"
+}
