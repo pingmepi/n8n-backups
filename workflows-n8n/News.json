@@ -109,13 +109,7 @@
     },
     "setFields1": {
       "main": [
-        [
-          {
-            "node": "Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "When clicking ‘Test workflow’": {
@@ -234,7 +228,7 @@
     },
     {
       "parameters": {
-        "url": "={{ $('If').item.json.link }}",
+        "url": "={{ $('If').first().json.link }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -288,7 +282,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.data }} {{ $('Limit').item.json.title }}",
+        "text": "={{ $json.data }} {{ $('Limit').first().json.title }}",
         "hasOutputParser": true,
         "messages": {
           "messageValues": [
@@ -383,6 +377,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-21T16:07:43.000Z",
-  "versionId": "60fe39b0-b139-4711-a1e9-5711f3490a1a"
+  "updatedAt": "2025-03-24T12:04:16.000Z",
+  "versionId": "f5cdcb81-e998-40d9-8c59-fb633231a705"
 }
