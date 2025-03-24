@@ -1,0 +1,57 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-17T09:54:59.906Z",
+  "id": "wbLJlEHF1aXCewSw",
+  "meta": null,
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -160
+      ],
+      "id": "a927dac9-db59-4980-8c03-0a82c67d3ed0",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -160
+      ],
+      "id": "76b865b1-a6be-4db9-bbc8-e9cd16a974c9",
+      "name": "Gmail",
+      "webhookId": "5e7ffb09-9494-4d91-a780-69cc95125345"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-17T09:54:59.906Z",
+  "versionId": "764887cf-af65-4032-b923-bf9ba0d22534"
+}
