@@ -1,0 +1,269 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-11T05:50:37.802Z",
+  "id": "qNaXoXVNowKr8Tfp",
+  "meta": null,
+  "name": "generate Content - X",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "866de510-1e11-4ac9-a705-cb1e480e0d92",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "ai_posts",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "fd2d4677-7431-4384-9104-f6f51f7cb8e6",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "3pFC1ecYJ41u3WKq",
+          "name": "Karan's project"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Here are the latest trending posts on AI:\n{{ $('Aggregate').item.json.post_text }}\n\nGenerate a short, engaging post suitable for X.com that builds on these trends. The post should:\\n- Be between 200 to 280 characters.\\n- Be conversational and thought-provoking.\\n- Include relevant hashtags like #AI, #MachineLearning, #GenerativeAI.\\n- Encourage engagement by asking a question or inviting discussion.\\n- Maintain a professional yet approachable tone\n\nApart from the content, also share ideal post time for the content in utc format.\nEnsure ouput is json-compliant.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        940,
+        0
+      ],
+      "id": "4d3f1513-c427-4b9a-a62e-98069faedeb1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        920,
+        200
+      ],
+      "id": "4557bd88-feae-4e10-8639-77d9c59a812f",
+      "name": "OpenRouter Chat Model"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Code').item.json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        300
+      ],
+      "id": "03a3b6e9-f78d-4042-b11e-5f87f3fa2e7d",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "text",
+              "renameField": true,
+              "outputFieldName": "post_text"
+            },
+            {
+              "fieldToAggregate": "created_at",
+              "renameField": true,
+              "outputFieldName": "post_created_time"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "b52f51a4-1482-4727-8ec8-2ae35c81f051",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate a random session ID of 16 characters\nconst sessionId = Math.random().toString(36).substring(2, 18) + \n                  Math.random().toString(36).substring(2, 18);\n\n// Output the sessionId\nreturn [{\n  sessionId: sessionId\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "217ae7a4-5af4-4021-bde1-5122af115687",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "tableId": "generated_content",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "content",
+              "fieldValue": "={{ $json.output.post }}"
+            },
+            {
+              "fieldId": "post_time",
+              "fieldValue": "={{ $json.output.ideal_time }}"
+            },
+            {
+              "fieldId": "status",
+              "fieldValue": "false"
+            },
+            {
+              "fieldId": "created_at",
+              "fieldValue": "={{ $now }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        0
+      ],
+      "id": "e04c898d-fa80-456e-90c2-3e45f3cc23a2",
+      "name": "Supabase1"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"post\":\"this is the post text.\",\n  \"ideal_time\":\"2025-02-24 10:30:00\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1220,
+        280
+      ],
+      "id": "045fc20a-8099-4f86-8ab7-76c6be7cccb5",
+      "name": "Structured Output Parser"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-20T07:07:25.000Z",
+  "versionId": "16f3270b-77f1-4154-82c2-3745faaecfb5"
+}
