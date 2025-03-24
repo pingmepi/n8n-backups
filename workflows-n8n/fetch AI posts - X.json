@@ -1,0 +1,371 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-11T05:49:01.275Z",
+  "id": "A91Mma0Jp0Y3BilN",
+  "meta": null,
+  "name": "fetch AI posts - X",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "39db9f44-42a1-499d-b0c6-e5aba1783bd7",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitter.com/2/tweets/search/recent",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "twitterOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "\"generative AI\""
+            },
+            {
+              "name": "max_results",
+              "value": "11"
+            },
+            {
+              "name": "tweet.fields",
+              "value": "author_id,created_at,public_metrics,text"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer AAAAAAAAAAAAAAAAAAAAAGobzgEAAAAAXvQISUWiSYEIKn6dX%2BkhKStwhhg%3DY2nFLyB3szcUG4lRb18KR4N7vxBLioDuzARtnxLas4GNMY1ATc"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        0
+      ],
+      "id": "9b8a9683-ec9a-44b3-ac6d-6d7818d1ba5c",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "tableId": "ai_posts",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "post_id",
+              "fieldValue": "={{ $json.id }}"
+            },
+            {
+              "fieldId": "author_id",
+              "fieldValue": "={{ $json.author_id }}"
+            },
+            {
+              "fieldId": "text",
+              "fieldValue": "={{ $json.text }}"
+            },
+            {
+              "fieldId": "created_at",
+              "fieldValue": "={{ $json.created_at }}"
+            },
+            {
+              "fieldId": "retweet_count",
+              "fieldValue": "={{ $json.public_metrics.retweet_count }}"
+            },
+            {
+              "fieldId": "reply_count",
+              "fieldValue": "={{ $json.public_metrics.reply_count }}"
+            },
+            {
+              "fieldId": "like_count",
+              "fieldValue": "={{ $json.public_metrics.like_count }}"
+            },
+            {
+              "fieldId": "quote_count",
+              "fieldValue": "={{ $json.public_metrics.quote_count }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        820,
+        0
+      ],
+      "id": "eb58eacb-9526-44db-b499-0e18c69c1328",
+      "name": "Supabase"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        540,
+        0
+      ],
+      "id": "c129c0d6-1b82-494e-b2ba-f0982354fa75",
+      "name": "Split Out"
+    }
+  ],
+  "pinData": {
+    "HTTP Request": [
+      {
+        "json": {
+          "data": [
+            {
+              "id": "1894119894544769254",
+              "created_at": "2025-02-24T20:19:08.000Z",
+              "author_id": "1711743087364517888",
+              "edit_history_tweet_ids": [
+                "1894119894544769254"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 2
+              },
+              "text": "Microsoft’s New AI Can Create Games | #news\n\nMicrosoft has introduced Muse, a groundbreaking generative AI model designed to revolutionize game development and player experiences...\n\nhttps://t.co/y9ByiPNG3T https://t.co/nCpu1GlavP"
+            },
+            {
+              "id": "1894119888870150240",
+              "created_at": "2025-02-24T20:19:07.000Z",
+              "author_id": "166009659",
+              "edit_history_tweet_ids": [
+                "1894119888870150240"
+              ],
+              "public_metrics": {
+                "retweet_count": 92,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 0
+              },
+              "text": "RT @EricTopol: Welcome to the era of generative #AI to design proteins and further deconvolute the language of life\n@ScienceMagazine \nExemp…"
+            },
+            {
+              "id": "1894119883371102390",
+              "created_at": "2025-02-24T20:19:05.000Z",
+              "author_id": "273488851",
+              "edit_history_tweet_ids": [
+                "1894119883371102390"
+              ],
+              "public_metrics": {
+                "retweet_count": 8,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 0
+              },
+              "text": "RT @9aufal: LevelUp Katsina: One Program, 25,000 Futures! \n\nAre you ready to gain in-demand digital skills that will shape your future? The…"
+            },
+            {
+              "id": "1894119874475016541",
+              "created_at": "2025-02-24T20:19:03.000Z",
+              "author_id": "1305948354514489344",
+              "edit_history_tweet_ids": [
+                "1894119874475016541"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 1
+              },
+              "text": "@COWCATGames It's not like AI is going away anytime soon. I can accept generative AI when it's used to aid developers, not replace them. This includes upscaling old FMVs, textures (gray area), etc., e.g., Pikmin 1+2 on Switch https://t.co/K43WJu4szh"
+            },
+            {
+              "id": "1894119853528694929",
+              "created_at": "2025-02-24T20:18:58.000Z",
+              "author_id": "1500222434141777926",
+              "edit_history_tweet_ids": [
+                "1894119853528694929"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 0
+              },
+              "text": "@hubdotxyz Events\n*The Main Stage talks are a big draw\n*XYZ Paris, blending generative AI with Web3.\nCreators\n* Luca Schnetzler from Pudgy Penguins,he’s got a knack for turning cute into culturally massive. \n*Beeple’s a no-brainer\nProjects\n* Pudgy Penguins\n* The Sandbox"
+            },
+            {
+              "id": "1894119746771075160",
+              "created_at": "2025-02-24T20:18:33.000Z",
+              "author_id": "4220561727",
+              "edit_history_tweet_ids": [
+                "1894119746771075160"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 4
+              },
+              "text": "5/ RelAITool\n\nPlatform to learn generative AI skills using example prompts and guides\n\n@relaitool https://t.co/bwa06OhuaT"
+            },
+            {
+              "id": "1894119608241852491",
+              "created_at": "2025-02-24T20:18:00.000Z",
+              "author_id": "751134829605822464",
+              "edit_history_tweet_ids": [
+                "1894119608241852491"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 1
+              },
+              "text": "💡 Generative #AI in Action: A Professional Services Success Story\n\nDiscover how one organization leveraged #GenerativeAI to improve timecard submission accuracy and boost their bottom line.👉 https://t.co/lz6ls2mX69\n\n#AIForROI #OperationalAI #AIInnovation #AIUseCases https://t.co/WUrjXo8IIS"
+            },
+            {
+              "id": "1894119546379816987",
+              "created_at": "2025-02-24T20:17:45.000Z",
+              "author_id": "174536329",
+              "edit_history_tweet_ids": [
+                "1894119546379816987"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 3
+              },
+              "text": "@minorun365 https://t.co/6sVttExEjx https://t.co/xaIos69AyA"
+            },
+            {
+              "id": "1894119437751783746",
+              "created_at": "2025-02-24T20:17:19.000Z",
+              "author_id": "2555071142",
+              "edit_history_tweet_ids": [
+                "1894119437751783746"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 2
+              },
+              "text": "@COWCATGames What is it used for? I remember when infinite fusion used generative AI for any of the Pokédex entries that people hadn’t submitted an entry for. I’m fine with it as a placeholder until actual work is done."
+            },
+            {
+              "id": "1894118840243470791",
+              "created_at": "2025-02-24T20:14:57.000Z",
+              "author_id": "1724183495122079744",
+              "edit_history_tweet_ids": [
+                "1894118840243470791"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 6
+              },
+              "text": "As Xbox triples down on generative AI, multiple indie devs reject it - Metro https://t.co/7IYYdF1quH #GenerativeAI #GenAI #AI"
+            },
+            {
+              "id": "1894118836376387812",
+              "created_at": "2025-02-24T20:14:56.000Z",
+              "author_id": "1724183495122079744",
+              "edit_history_tweet_ids": [
+                "1894118836376387812"
+              ],
+              "public_metrics": {
+                "retweet_count": 0,
+                "reply_count": 0,
+                "like_count": 0,
+                "quote_count": 0,
+                "bookmark_count": 0,
+                "impression_count": 1
+              },
+              "text": "Software Stock Hits All-Time High Amid Generative AI Transformer Push, Eyes New Buy Point https://t.co/zh9e7r2ihc #GenerativeAI #GenAI #AI"
+            }
+          ],
+          "meta": {
+            "newest_id": "1894119894544769254",
+            "oldest_id": "1894118836376387812",
+            "result_count": 11,
+            "next_token": "b26v89c19zqg8o3frrcrvomsw54j56ludn96axqrbbdz1"
+          }
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-11T05:50:53.000Z",
+  "versionId": "80e50ed4-1484-4f5f-8484-073c5cf96e17"
+}
