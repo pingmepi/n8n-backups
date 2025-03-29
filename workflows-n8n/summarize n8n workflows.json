@@ -5,7 +5,7 @@
       "main": [
         [
           {
-            "node": "GitHub2",
+            "node": "GitHub4",
             "type": "main",
             "index": 0
           }
@@ -734,11 +734,11 @@
           "values": [
             {
               "column": "workflow_name",
-              "value": "={{ $('GitHub7').item.json.name }}"
+              "value": "={{ $('GitHub5').item.json.name }}"
             },
             {
               "column": "workflow_url",
-              "value": "={{ $('GitHub7').item.json.git_url }}"
+              "value": "={{ $('GitHub5').item.json.git_url }}"
             }
           ]
         },
@@ -1207,6 +1207,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-29T09:15:18.000Z",
-  "versionId": "5999d709-ce12-41f5-b0ad-33551d6e3f65"
+  "updatedAt": "2025-03-29T09:59:14.000Z",
+  "versionId": "df842392-e0ff-4ee1-914b-512713e4136d"
 }
