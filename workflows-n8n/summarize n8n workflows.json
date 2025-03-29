@@ -5,18 +5,7 @@
       "main": [
         [
           {
-            "node": "GitHub",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GitHub": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items",
+            "node": "GitHub2",
             "type": "main",
             "index": 0
           }
@@ -25,21 +14,16 @@
     },
     "Loop Over Items": {
       "main": [
-        [],
         [
           {
-            "node": "GitHub1",
+            "node": "Aggregate",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "GitHub1": {
-      "main": [
+        ],
         [
           {
-            "node": "AI Agent",
+            "node": "GitHub3",
             "type": "main",
             "index": 0
           }
@@ -57,12 +41,258 @@
         ]
       ]
     },
-    "MCP Client": {
-      "ai_tool": [
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
         [
           {
             "node": "AI Agent",
-            "type": "ai_tool",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub3": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "GitHub5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Postgres2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory1": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Postgres3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres3": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub5": {
+      "main": [
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub4": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres4": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
             "index": 0
           }
         ]
@@ -81,11 +311,262 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -600,
-        -240
+        -1160,
+        900
       ],
       "id": "b99ed753-8fb1-4cd6-aa87-55920b78fca5",
       "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -160,
+        -240
+      ],
+      "id": "2543dc5b-6040-41a2-afbf-a8ce613d70c4",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a helpful AI that is well-versed with json. \nYour job here is to take the json file from the previous node, parse it and understand the workflow. The final description of the workflow will be used as a reference to understand the setup of the flow so it needs to be detailed. \nThen you have to store it in the postgres table along with the workflow name, its description and details on what the workflow does and how, and the tools used in the workflow. Also update the tokens used to create that entry in the databse. \nDetail out the workflow to include what was used, how was it used, how are the nodes connected, what are the keys to be used, and all other such details (do not add sensitive information).\nEach run is a new workflow, ensure you are naming and adding summaries to postgres table correctly. \nBelow is the json content that you have to parse. \nThe output should not contain any null values for any params. if it is null, regenerate the json. \n{{ $json.fileContent }}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        1840,
+        60
+      ],
+      "id": "edf1cf56-b29f-426b-aeae-0059abec1a25",
+      "name": "AI Agent",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        620
+      ],
+      "id": "9d9af0cc-f4bb-4cc1-a702-b72095ffbc1f",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "Qs73UZvTc5CCzGBb",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('GitHub3').item.json.sha }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        3240,
+        -40
+      ],
+      "id": "d759ea70-6d3a-41c3-b7f0-e91956e1c396",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "destinationKey": "content",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        -120
+      ],
+      "id": "3ea9fab0-b102-4c99-8e35-f0ffc1abc6c6",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "workflow_name",
+              "value": "={{ $('GitHub3').item.json.name }}"
+            },
+            {
+              "column": "workflow_url",
+              "value": "={{ $('GitHub3').item.json.git_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        660,
+        -120
+      ],
+      "id": "043c589a-6b6b-40a0-af9e-bf178a5a4725",
+      "name": "Postgres1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92cf77c5-720b-43b4-ba43-57fa8b54cd8e",
+              "leftValue": "={{ $json.isNotEmpty() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        -120
+      ],
+      "id": "b8f0079e-a80f-4b96-bd20-53f2774832ca",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "40124a50-dede-430d-8bf9-159bda7564f0",
+              "name": "fileContent",
+              "value": "={{ $('Extract from File').item.json.content.toJsonString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        -20
+      ],
+      "id": "d1d5f0b7-5ec0-48aa-a373-237dae085273",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "value": "me-karanm",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-backups",
+          "mode": "name"
+        },
+        "filePath": "workflows2"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        -380,
+        -60
+      ],
+      "id": "aa480d69-325e-4365-9ab1-c0f6bfcf5f8d",
+      "name": "GitHub2",
+      "credentials": {
+        "githubApi": {
+          "id": "5WhsDEnEC1aXABh4",
+          "name": "GitHub account - miles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "me-karanm",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-backups",
+          "mode": "name"
+        },
+        "filePath": "={{ $json.path }}",
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -120
+      ],
+      "id": "27bb5014-8168-4b7b-a5c7-53b39348db9c",
+      "name": "GitHub3",
+      "retryOnFail": true,
+      "credentials": {
+        "githubApi": {
+          "id": "5WhsDEnEC1aXABh4",
+          "name": "GitHub account - miles"
+        }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -106,11 +587,11 @@
       "type": "n8n-nodes-base.github",
       "typeVersion": 1,
       "position": [
-        -380,
-        -240
+        -480,
+        1500
       ],
-      "id": "b2389e3f-3baa-4ce9-9856-b9d3f2d6f243",
-      "name": "GitHub",
+      "id": "b2a10832-a98e-46ae-bc58-558fe331345d",
+      "name": "GitHub4",
       "credentials": {
         "githubApi": {
           "id": "YvsSrx4HuzgG4yem",
@@ -126,10 +607,10 @@
       "typeVersion": 3,
       "position": [
         -160,
-        -240
+        1620
       ],
-      "id": "2543dc5b-6040-41a2-afbf-a8ce613d70c4",
-      "name": "Loop Over Items"
+      "id": "7694f147-5ab9-4268-9a4f-25f890006716",
+      "name": "Loop Over Items1"
     },
     {
       "parameters": {
@@ -146,17 +627,16 @@
           "mode": "name"
         },
         "filePath": "={{ $json.path }}",
-        "asBinaryProperty": false,
         "additionalParameters": {}
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1,
       "position": [
-        160,
-        -120
+        140,
+        1700
       ],
-      "id": "5dc8fb0d-e6d6-4c75-b93f-999c7f8eef8d",
-      "name": "GitHub1",
+      "id": "3f2af9d2-444e-43e7-89fb-9b31b84bf112",
+      "name": "GitHub5",
       "credentials": {
         "githubApi": {
           "id": "YvsSrx4HuzgG4yem",
@@ -167,30 +647,32 @@
     {
       "parameters": {
         "promptType": "define",
+        "text": "=You are a helpful AI that is well-versed with json. \nYour job here is to take the json file from the previous node, parse it and understand the workflow. The final description of the workflow will be used as a reference to understand the setup of the flow so it needs to be detailed. \nThen you have to store it in the postgres table along with the workflow name, its description and details on what the workflow does and how, and the tools used in the workflow. Also update the tokens used to create that entry in the databse. \nDetail out the workflow to include what was used, how was it used, how are the nodes connected, what are the keys to be used, and all other such details (do not add sensitive information).\nEach run is a new workflow, ensure you are naming and adding summaries to postgres table correctly. \nBelow is the json content that you have to parse. \nThe output should not contain any null values for any params. if it is null, regenerate the json. \n{{ $json.fileContent }}",
+        "hasOutputParser": true,
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.8,
       "position": [
-        460,
-        -120
+        1840,
+        1920
       ],
-      "id": "edf1cf56-b29f-426b-aeae-0059abec1a25",
-      "name": "AI Agent"
+      "id": "5c1f7d84-781b-46e1-884f-4b6e1fa3a4a4",
+      "name": "AI Agent1",
+      "retryOnFail": true
     },
     {
       "parameters": {
-        "model": "anthropic/claude-3.7-sonnet:thinking",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        360,
-        140
+        1740,
+        2480
       ],
-      "id": "9d9af0cc-f4bb-4cc1-a702-b72095ffbc1f",
-      "name": "OpenRouter Chat Model",
+      "id": "39107319-84d6-42c4-80a4-273e7ca2147b",
+      "name": "OpenRouter Chat Model1",
       "credentials": {
         "openRouterApi": {
           "id": "Qs73UZvTc5CCzGBb",
@@ -199,19 +681,521 @@
       }
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-mcp.mcpClientTool",
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('GitHub5').item.json.sha }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        2720,
+        2640
+      ],
+      "id": "06a757c2-1158-46f5-82da-066eee0c52a8",
+      "name": "Postgres Chat Memory1",
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "destinationKey": "content",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1,
       "position": [
-        620,
-        100
+        440,
+        1740
       ],
-      "id": "042ce38d-fe56-40b8-9c29-95e4a18941ce",
-      "name": "MCP Client",
+      "id": "026af170-25de-4b4e-a0e7-5d51b485be72",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "workflow_name",
+              "value": "={{ $('GitHub7').item.json.name }}"
+            },
+            {
+              "column": "workflow_url",
+              "value": "={{ $('GitHub7').item.json.git_url }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        660,
+        1740
+      ],
+      "id": "c3880369-2762-4854-a8f3-e92136ff6e50",
+      "name": "Postgres3",
+      "alwaysOutputData": true,
       "credentials": {
-        "mcpClientApi": {
-          "id": "slcxxVScCdVdUo16",
-          "name": "ElevenLabs"
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92cf77c5-720b-43b4-ba43-57fa8b54cd8e",
+              "leftValue": "={{ $json.isNotEmpty() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        1740
+      ],
+      "id": "55da2592-8253-4136-8d47-19bda894bdfd",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "40124a50-dede-430d-8bf9-159bda7564f0",
+              "name": "fileContent",
+              "value": "={{ $('Extract from File1').item.json.content.toJsonString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        1840
+      ],
+      "id": "97b35eae-f8e7-4c48-a149-7cb7826626c6",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "content": "Miles account\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -660,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "03852909-c924-4543-a399-e100c020c1f7",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "Personal Account"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -700,
+        1640
+      ],
+      "typeVersion": 1,
+      "id": "de59de6a-2f52-4f32-b300-4b5642df8fad",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"workflow_name\":\"name of the workflow for which the description was generated\",\n  \"workflow_url\":\"the github url of the workflow\",\n  \"tools_used\":\"the tools that were used in the workflow\",\n  \"workflow_description\":\"details of the workflow as mentioned\",\n  \"tokens_used\":\"number of tokens used to generate row details\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        2000,
+        560
+      ],
+      "id": "1c687f87-763a-4bfd-8d40-0c1b18f5d73e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"workflow_name\":\"name of the workflow for which the description was generated\",\n  \"workflow_url\":\"the github url of the workflow\",\n  \"tools_used\":\"the tools that were used in the workflow\",\n  \"workflow_description\":\"details of the workflow as mentioned\",\n  \"tokens_used\":\"number of tokens used to generate row details\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        2020,
+        2260
+      ],
+      "id": "2490d560-6ecc-46ed-92fe-7a36c7ba6c24",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "workflow_name": "={{ $fromAI('workflow_name', ``, 'string') }}",
+            "workflow_description": "={{ $fromAI('workflow_description', ``, 'string') }}",
+            "tools_used": "={{ $fromAI('tools_used', ``, 'string') }}",
+            "tokens_used": "={{ $fromAI('tokens_used', ``, 'number') }}",
+            "workflow_url": "={{ $fromAI('workflow_url', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "workflow_name",
+              "displayName": "workflow_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "workflow_description",
+              "displayName": "workflow_description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tools_used",
+              "displayName": "tools_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tokens_used",
+              "displayName": "tokens_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "workflow_url",
+              "displayName": "workflow_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgresTool",
+      "typeVersion": 2.5,
+      "position": [
+        2400,
+        2400
+      ],
+      "id": "29ee82cb-a91d-4b1a-a649-841b95d79545",
+      "name": "Postgres4",
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "output"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        120,
+        -300
+      ],
+      "id": "0cd9d4ae-e8ae-4ffd-bd8b-8ba8a14e4998",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "workflow_name": "={{ $('GitHub3').item.json.name }}",
+            "workflow_description": "={{ $json.output.workflow_description }}",
+            "tools_used": "={{ $json.output.tools_used }}",
+            "workflow_url": "={{ $('GitHub3').item.json.git_url }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "workflow_name",
+              "displayName": "workflow_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "workflow_description",
+              "displayName": "workflow_description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tools_used",
+              "displayName": "tools_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tokens_used",
+              "displayName": "tokens_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "workflow_url",
+              "displayName": "workflow_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2200,
+        60
+      ],
+      "id": "e5887786-6bef-4ca3-98d7-efa645167ce7",
+      "name": "Postgres",
+      "retryOnFail": true,
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "workflow_name": "={{ $('GitHub5').item.json.name }}",
+            "workflow_description": "={{ $json.output.workflow_description }}",
+            "tools_used": "={{ $json.output.tools_used }}",
+            "workflow_url": "={{ $('GitHub5').item.json.git_url }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "workflow_name",
+              "displayName": "workflow_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "workflow_description",
+              "displayName": "workflow_description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tools_used",
+              "displayName": "tools_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tokens_used",
+              "displayName": "tokens_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "workflow_url",
+              "displayName": "workflow_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        2280,
+        1920
+      ],
+      "id": "15379ed9-6916-44d3-9cc9-73b884c5bcfd",
+      "name": "Postgres2",
+      "retryOnFail": true,
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
         }
       }
     }
@@ -223,6 +1207,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-24T19:30:21.000Z",
-  "versionId": "da595fa9-15d6-47c7-a4ce-03e89241a329"
+  "updatedAt": "2025-03-29T09:15:18.000Z",
+  "versionId": "5999d709-ce12-41f5-b0ad-33551d6e3f65"
 }
