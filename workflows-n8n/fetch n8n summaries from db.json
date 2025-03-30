@@ -1,0 +1,115 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-03-30T05:29:54.798Z",
+  "id": "ZvC3NLjCHT3JYpeV",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "fetch n8n summaries from db",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -60
+      ],
+      "id": "32279164-f1e7-4707-99be-5f2bff111bb6",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "n8n_flow_details",
+          "mode": "list",
+          "cachedResultName": "n8n_flow_details"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        -120,
+        -60
+      ],
+      "id": "586eb28a-85b3-41e4-80bd-5a85dd0b6044",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "DMxLIUQ3fwwDUW7e",
+          "name": "neondb account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "workflow_name"
+            },
+            {
+              "fieldToAggregate": "workflow_description"
+            },
+            {
+              "fieldToAggregate": "tools_used"
+            }
+          ]
+        },
+        "options": {
+          "mergeLists": true
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        100,
+        -60
+      ],
+      "id": "d7a9b41b-597d-41b6-95ff-194b3d3de5c7",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-03-30T07:17:37.000Z",
+  "versionId": "61aade79-2219-4688-bf21-ba7b2bc9a08d"
+}
