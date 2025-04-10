@@ -22,6 +22,17 @@
           }
         ]
       ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-03-30T05:29:54.798Z",
@@ -79,13 +90,7 @@
         "fieldsToAggregate": {
           "fieldToAggregate": [
             {
-              "fieldToAggregate": "workflow_name"
-            },
-            {
               "fieldToAggregate": "workflow_description"
-            },
-            {
-              "fieldToAggregate": "tools_used"
             }
           ]
         },
@@ -101,6 +106,19 @@
       ],
       "id": "d7a9b41b-597d-41b6-95ff-194b3d3de5c7",
       "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -60
+      ],
+      "id": "50878175-9d35-4110-bd20-81ac3f4d5218",
+      "name": "Convert to File"
     }
   ],
   "pinData": {},
@@ -110,6 +128,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-30T07:17:37.000Z",
-  "versionId": "61aade79-2219-4688-bf21-ba7b2bc9a08d"
+  "updatedAt": "2025-04-09T20:13:58.000Z",
+  "versionId": "196a4384-3e0a-4f3b-9cf9-60f716ecf446"
 }
