@@ -66,7 +66,7 @@
     },
     {
       "parameters": {
-        "url": "https://www.mileseducation.com/",
+        "url": "https://www.collegedekho.com/colleges/uei-global-faridabad",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -146,6 +146,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-03-12T10:36:03.000Z",
-  "versionId": "beafb632-34c3-4869-b79e-cec5181f7493"
+  "updatedAt": "2025-04-16T17:17:23.000Z",
+  "versionId": "09cdf1e6-c5ec-4190-aef8-0dae37100220"
 }
